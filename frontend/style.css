@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #af321c;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+
+}
+
+nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+section {
+    padding: 20px;
+    text-align: center;
+}
+.plato {
+    background-color: white;
+    margin: 20px auto ;
+    padding: 15px;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
