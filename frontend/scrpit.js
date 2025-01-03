@@ -7,26 +7,32 @@ let total = 0;
     const listaPedido = document.getElementById('lista-pedido');
     const totalElemento = document.getElementById('total');
     const botnvaciar = document.getElementById('vaciarcarrito');
-    
-    platos.forEach(plato => {
-        plato.addEventListener('click', () => {
-            alert(`¡Seleccionaste ${plato.querySelector('h3').innerText}!`);
+
+    const renderizarcarrito = () => {
+        listaPedido.innerHTML = "";
+        carrito.forEach((item, index) =>{
+            const nuevoItem = document.createElement('li');
+            nuevoItem.innerHTML =`${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)}
+            <button class="btn-menos" data-index="${index}">-</button>
+            <button class="btn-mas" data-index="${index}">+</button>
+       `;
+       listaPedido.appendChild(nuevoItem);
         });
-    });
+        totalElemento.innerText = total.toFixed(2);
+    }
+
+    //platos.forEach(plato => {
+     //   plato.addEventListener('click', () => {
+     //       alert(`¡Seleccionaste ${plato.querySelector('h3').innerText}!`);
+     //   });
+    //});
     const cargarCarrito = () => {
         const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
         const totalGuardado = parseInt(localStorage.getItem('total')) || 0;
     
         carrito = carritoGuardado;
         total = totalGuardado;
-    
-        // Renderizar el carrito guardado
-        carrito.forEach(item => {
-            const nuevoItem = document.createElement('li');
-            nuevoItem.innerText = `${item.nombre} - $${item.precio}`;
-            listaPedido.appendChild(nuevoItem);
-        });
-        totalElemento.innerText = total;
+        renderizarcarrito();
     };
     
     // Llama a esta función al cargar la página
@@ -35,17 +41,16 @@ let total = 0;
     botonesPedido.forEach(boton => {
         boton.addEventListener('click', () =>{
         const nombre = boton.dataset.nombre;
-        const precio = parseInt(boton.dataset.precio);
-        carrito.push({nombre, precio});
-
+        const precio= parseFloat(boton.dataset.precio);
+        const itemExiste = carrito.find(item => item.nombre === nombre);
+        
+        if(itemExiste){
+            itemExiste.cantidad++;
+        }else{
+            carrito.push({nombre,precio, cantidad:1});
+        }
         total += precio;
-
-        const nuevoItem = document.createElement('li');
-        nuevoItem.innerText = `${nombre} - $${precio}`;
-        listaPedido.appendChild(nuevoItem);
-
-        totalElemento.innerText = total;
-
+        renderizarcarrito();
          // Guardar en localStorage
          localStorage.setItem('carrito', JSON.stringify(carrito));
          localStorage.setItem('total', total);
@@ -63,5 +68,24 @@ let total = 0;
         }
     });
 
+
+    listaPedido.addEventListener('click', (e) => {
+        const index = e.target.dataset.index;
+        if(e.target.classList.contains('btn-mas')){
+            carrito[index].cantidad++;
+            total += carrito[index].precio;
+        }else if(e.target.classList.contains('btn-menos')){
+            if(carrito[index].cantidad >1){
+                carrito[index].cantidad--;
+                total -= carrito[index].precio;
+            }else {
+                total -= carrito[index].precio;
+                carrito.splice(index, 1);
+            }
+        }
+        renderizarcarrito();
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        localStorage.setItem('total', total);
+    });
 
 });
