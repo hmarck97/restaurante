@@ -7,6 +7,7 @@ let total = 0;
     const listaPedido = document.getElementById('lista-pedido');
     const totalElemento = document.getElementById('total');
     const botnvaciar = document.getElementById('vaciarcarrito');
+    const fincompra = document.getElementById('comprar');
 
     const renderizarcarrito = () => {
         listaPedido.innerHTML = "";
@@ -52,8 +53,7 @@ let total = 0;
         total += precio;
         renderizarcarrito();
          // Guardar en localStorage
-         localStorage.setItem('carrito', JSON.stringify(carrito));
-         localStorage.setItem('total', total);
+         guardarlocal();
     });
     });
     botnvaciar.addEventListener('click', () => {
@@ -63,8 +63,7 @@ let total = 0;
         total = 0;  // Reinicia el total
         totalElemento.innerText = total;  // Actualiza el total en pantalla
          // Limpiar localStorage
-    localStorage.removeItem('carrito');
-    localStorage.removeItem('total');
+    guardarlocal();
         }
     });
 
@@ -84,8 +83,32 @@ let total = 0;
             }
         }
         renderizarcarrito();
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        localStorage.setItem('total', total);
+        guardarlocal();
     });
+    fincompra.addEventListener('click', () =>{
+        if(carrito.length === 0){
+            alert("Carrito vacio")
+            return;
+        }
+        let resumen = "resumen del pedido \n";
+        carrito.forEach(item =>{
+            resumen += `${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)}\n`;
+        });
+        resumen += `\nTOTAL: $${total.toFixed(2)}`;
 
+        const confirmacion = confirm(`${resumen}\n\n¿Deseas confirmar la compra?`)
+
+        if(confirmacion){
+            alert("Gracias por comprar en sushi saky");
+            carrito =[];
+            listaPedido.innerHTML="";
+            total =0;
+            totalElemento.innerHTML =total;
+            guardarlocal();
+        }
+    });
+    function guardarlocal(){
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    localStorage.setItem('total', total);
+    }
 });
