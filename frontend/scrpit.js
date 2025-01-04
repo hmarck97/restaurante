@@ -9,6 +9,7 @@ let total = 0;
     const botnvaciar = document.getElementById('vaciarcarrito');
     const fincompra = document.getElementById('comprar');
 
+
     const renderizarcarrito = () => {
         listaPedido.innerHTML = "";
         carrito.forEach((item, index) =>{
@@ -111,4 +112,6 @@ let total = 0;
         localStorage.setItem('carrito', JSON.stringify(carrito));
     localStorage.setItem('total', total);
     }
+    
+
 });

@@ -4,54 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Restaurante</title>
 </head>
 <body>
-    <header>
-            <h1>SUSHI SAKY</h1>
+    <header class="bg-dark text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="m-0" >SUSHI SAKY</h1>
             <nav>
-                <a href="#menu">MENU</a>
-                <a href="#contacto">CONTACTO</a>
+                <a href="#menu" class="text-white me-3">MENU</a>
+                <a href="#contacto" class="text-white">CONTACTO</a>
             </nav>
+        </div>
     </header>
-    <section id="menu">
-        <h2>Menu del dia</h2>
-        <div class="plato">
-            <h3>Sushi con camaron</h3>
-            <p>Delicio sushi capeado con camaron momia</p>
-            <p><strong>$120</strong></p>
-            <button class="btn-pedido" data-nombre="Sushi con camaron" data-precio="120">Agregar al pedido</button>
-        </div>
-        <div class="plato">
-            <h3>Yakimeshi de pollo</h3>
-            <p>Yakimeshi acompañado de pollo</p>
-            <p><strong>$100</strong></p>
-            <button class="btn-pedido" data-nombre="Yakimeshi de pollo" data-precio="100">Agregar al pedido</button>
-        </div>
-        <div class="plato">
-            <h3>Sashimi</h3>
-            <p>Delicioso pescado crudo</p>
-            <p><strong>$150</strong></p>
-            <button class="btn-pedido" data-nombre="Sashimi" data-precio="150">Agregar al pedido</button>
-        </div>
-        <div class="plato">
-            <h3>Te helado</h3>
-            <p>Refescante te helado para la epoca de calor</p>
-            <p><strong>$30</strong></p>
-            <button class="btn-pedido" data-nombre="Te helado" data-precio="30">Agregar al pedido</button>
+
+    <section id="menu" class="container mt-5">
+        <h2 class="text-center mb-4">Menu del dia</h2>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <img src="imagenes\sushicama.jpeg" class="card-img-top" alt="Sushi con camaron">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Sushi con camaron</h3>
+                        <p class="card-text">Delicioso sushi capeado con camaron momia</p>
+                        <p><strong>$120</strong></p>
+                        <button class="btn btn-primary btn-pedido" data-nombre="Sushi con camaron" data-precio="120">Agregar al pedido</button>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <img src="imagenes\yakimeshi.jpg" class="card-img-top" alt="Yakimeshi de pollo">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Yakimeshi de pollo</h3>
+                        <p class="card-text">Yakimeshi acompañado de pollo</p>
+                        <p><strong>$100</strong></p>
+                        <button class="btn btn-primary btn-pedido" data-nombre="Yakimeshi de pollo" data-precio="100">Agregar al pedido</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <img src="imagenes/sashimi.jpg" class="card-img-top" alt="Sashimi">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Sashimi</h3>
+                        <p class="card-text">Delicioso pescado crudo</p>
+                        <p><strong>$150</strong></p>
+                        <button class="btn btn-primary btn-pedido" data-nombre="Sashimi" data-precio="150">Agregar al pedido</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <img src="imagenes/te.jpg" class="card-img-top" alt="Te helado">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">Te helado</h3>
+                        <p class="card-text">Refescante te helado para la epoca de calor</p>
+                        <p><strong>$30</strong></p>
+                        <button class="btn btn-primary btn-pedido" data-nombre="Te helado" data-precio="30">Agregar al pedido</button>
+                    </div>
+                </div>
+            </div>
+
+    </section> 
+    <section id="pedido" class="container mt-5">
+        <div class="bg-light p-4 rounded shadow">
+            <h2 class="text-center">Tu pedido</h2>
+            <ul id="lista-pedido" class="list-group mt-3"></ul>
+            <p class="text-end mt-3"><strong>TOTAL: $ <span id="total">0</span></strong></p>
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-danger" id="vaciarcarrito">Borrar pedidos</button>
+                <button class="btn btn-success" id="comprar" data-bs-toggle="modal" data-bs-target="#compraModal">Finalizar compra</button>
+            </div>        
         </div>
     </section>
-    <section id="pedido">
-        <h2>Tu pedido</h2>
-        <ul id="lista-pedido"></ul>
-        <p><strong>TOTAL: $ <span id="total">0</span></strong></p>
-        <button id="vaciarcarrito">Borrar pedidos</button>
-        <button id="comprar">Finalizar compra</button>
-    </section>
-    <footer>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
         <p>&copy;2025 SUSHI SAKY</p>
     </footer>
     <script src="scrpit.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
